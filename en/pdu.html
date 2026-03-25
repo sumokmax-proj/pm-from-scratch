@@ -1,0 +1,73 @@
+---
+layout: default
+title: PDU Tracker
+lang: en
+permalink: /en/pdu/
+---
+
+<h1>PDU Tracker</h1>
+<p>Recording PDUs earned through blog content creation.<br>
+Can be registered as PMI <strong>Category D: Creating New Knowledge</strong>.</p>
+
+{% assign en_posts = site.posts | where: "lang", "en" %}
+{% assign pdu_posts = en_posts | where_exp: "post", "post.pdu_hours != nil" %}
+
+{% assign total_hours = 0 %}
+{% for post in pdu_posts %}
+  {% assign total_hours = total_hours | plus: post.pdu_hours %}
+{% endfor %}
+
+<div class="pdu-summary">
+  <div class="pdu-stat">
+    <span class="pdu-stat-number">{{ total_hours }}</span>
+    <span class="pdu-stat-label">Total PDU Hours</span>
+  </div>
+  <div class="pdu-stat">
+    <span class="pdu-stat-number">{{ pdu_posts | size }}</span>
+    <span class="pdu-stat-label">Posts Written</span>
+  </div>
+  <div class="pdu-stat">
+    <span class="pdu-stat-number">2026</span>
+    <span class="pdu-stat-label">Started</span>
+  </div>
+</div>
+
+<table class="pdu-table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Title</th>
+      <th>Category</th>
+      <th>PDU Type</th>
+      <th>Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for post in pdu_posts %}
+    <tr>
+      <td>{{ post.date | date: "%Y.%m.%d" }}</td>
+      <td><a href="{{ post.url | relative_url }}">{{ post.title }}</a></td>
+      <td>{{ post.categories | first | capitalize }}</td>
+      <td>{{ post.pdu_category }}</td>
+      <td>{{ post.pdu_hours }}h</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4"><strong>Total</strong></td>
+      <td><strong>{{ total_hours }}h</strong></td>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="pdu-note">
+  <h3>How to Register PDUs with PMI</h3>
+  <ol>
+    <li>Log in to <a href="https://ccrs.pmi.org" target="_blank">PMI CCRS</a></li>
+    <li>Select Report PDUs</li>
+    <li>Select Category D: Creating New Knowledge</li>
+    <li>Enter the blog URL, date written, and hours</li>
+    <li>Submit!</li>
+  </ol>
+</div>
