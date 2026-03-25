@@ -1,0 +1,66 @@
+---
+layout: default
+---
+
+<article class="post-wrapper">
+  <header class="post-header">
+    {% if page.categories.size > 0 %}
+      <div class="post-category">{{ page.categories | first }}</div>
+    {% endif %}
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-meta">
+      <span class="post-date">{{ page.date | date: "%Y.%m.%d" }}</span>
+      {% if page.pdu_hours %}
+        <span class="pdu-badge">PDU {{ page.pdu_hours }}h · {{ page.pdu_category }}</span>
+      {% endif %}
+    </div>
+
+    <div class="lang-toggle">
+      {% if page.lang == 'ko' %}
+        <span class="lang-current">🇰🇷 한국어</span>
+        {% assign found_en = false %}
+        {% for p in site.posts %}
+          {% if p.ref == page.ref and p.lang == 'en' %}
+            <a href="{{ p.url | relative_url }}" class="lang-switch-link">Read in English →</a>
+            {% assign found_en = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% for p in site.posts %}
+          {% if p.ref == page.ref and p.lang == 'ko' %}
+            <a href="{{ p.url | relative_url }}" class="lang-switch-link">← 한국어로 읽기</a>
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        <span class="lang-current">🇺🇸 English</span>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  {% if page.pdu_hours %}
+  <div class="pdu-info-box">
+    {% if page.lang == 'en' %}
+      <strong>📋 PDU Info</strong><br>
+      This post can be registered as <strong>{{ page.pdu_category }}</strong> for <strong>{{ page.pdu_hours }} hours</strong> PDU.
+      <a href="{{ '/en/pdu/' | relative_url }}">View PDU Tracker →</a>
+    {% else %}
+      <strong>📋 PDU 정보</strong><br>
+      이 글은 <strong>{{ page.pdu_category }}</strong> 카테고리로 <strong>{{ page.pdu_hours }}시간</strong> PDU 등록이 가능합니다.
+      <a href="{{ '/ko/pdu/' | relative_url }}">PDU 트래커 보기 →</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <footer class="post-footer">
+    {% if page.lang == 'en' %}
+      <a href="{{ '/en/' | relative_url }}" class="back-link">← Back to posts</a>
+    {% else %}
+      <a href="{{ '/ko/' | relative_url }}" class="back-link">← 목록으로</a>
+    {% endif %}
+  </footer>
+</article>
