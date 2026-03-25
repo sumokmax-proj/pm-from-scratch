@@ -1,0 +1,61 @@
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a class="site-brand" href="{{ '/' | relative_url }}">
+        <span class="brand-name">PM From Scratch</span>
+        <span class="brand-sub">
+          {% if page.lang == 'en' %}Junior PM Growth Notes{% else %}주니어 PM 성장 노트{% endif %}
+        </span>
+      </a>
+
+      <nav class="site-nav">
+        {% if page.lang == 'en' %}
+          <a href="{{ '/en/' | relative_url }}">Home</a>
+          <a href="{{ '/en/about/' | relative_url }}">About</a>
+          <a href="{{ '/en/pdu/' | relative_url }}">PDU Tracker</a>
+        {% else %}
+          <a href="{{ '/ko/' | relative_url }}">홈</a>
+          <a href="{{ '/ko/about/' | relative_url }}">소개</a>
+          <a href="{{ '/ko/pdu/' | relative_url }}">PDU 트래커</a>
+        {% endif %}
+      </nav>
+
+      <div class="lang-switcher">
+        {% assign cur_lang = page.lang | default: 'ko' %}
+        {% if cur_lang == 'ko' %}
+          <span class="lang-btn lang-active">KO</span>
+          {% if page.layout == 'post' %}
+            {% assign found_en = false %}
+            {% for p in site.posts %}
+              {% if p.ref == page.ref and p.lang == 'en' %}
+                <a href="{{ p.url | relative_url }}" class="lang-btn">EN</a>
+                {% assign found_en = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% unless found_en %}<span class="lang-btn lang-disabled">EN</span>{% endunless %}
+          {% else %}
+            {% assign en_url = page.url | replace: '/ko/', '/en/' %}
+            <a href="{{ en_url | relative_url }}" class="lang-btn">EN</a>
+          {% endif %}
+        {% else %}
+          {% if page.layout == 'post' %}
+            {% assign found_ko = false %}
+            {% for p in site.posts %}
+              {% if p.ref == page.ref and p.lang == 'ko' %}
+                <a href="{{ p.url | relative_url }}" class="lang-btn">KO</a>
+                {% assign found_ko = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% unless found_ko %}<span class="lang-btn lang-disabled">KO</span>{% endunless %}
+          {% else %}
+            {% assign ko_url = page.url | replace: '/en/', '/ko/' %}
+            <a href="{{ ko_url | relative_url }}" class="lang-btn">KO</a>
+          {% endif %}
+          <span class="lang-btn lang-active">EN</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
