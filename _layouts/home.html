@@ -1,0 +1,53 @@
+---
+layout: default
+---
+
+<section class="hero">
+  <div class="container">
+    <h1>
+      {% if page.lang == 'en' %}PM, From Scratch{% else %}PM, 처음부터 다시{% endif %}
+    </h1>
+    <p>
+      {% if page.lang == 'en' %}
+        Honest notes from a PMP-certified junior PM.<br>
+        Real struggles, real solutions — for everyone just starting out.
+      {% else %}
+        PMP를 갓 취득한 주니어 PM의 솔직한 성장 노트.<br>
+        같은 어려움을 겪는 분들과 함께 성장하고 싶습니다.
+      {% endif %}
+    </p>
+  </div>
+</section>
+
+<div class="container home-content">
+  <div class="section-header">
+    <h2 class="section-title">
+      {% if page.lang == 'en' %}Recent Posts{% else %}최신 글{% endif %}
+    </h2>
+  </div>
+
+  {% assign lang_posts = site.posts | where: "lang", page.lang %}
+  {% if lang_posts.size == 0 %}
+    <p class="no-posts">
+      {% if page.lang == 'en' %}No posts yet. Check back soon!{% else %}아직 글이 없습니다. 곧 업데이트될 예정이에요!{% endif %}
+    </p>
+  {% else %}
+    <div class="post-grid">
+      {% for post in lang_posts limit: 9 %}
+      <a href="{{ post.url | relative_url }}" class="post-card">
+        {% if post.categories.size > 0 %}
+          <span class="post-card-category">{{ post.categories | first }}</span>
+        {% endif %}
+        <h2>{{ post.title }}</h2>
+        <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+        <div class="post-card-meta">
+          <span>{{ post.date | date: "%Y.%m.%d" }}</span>
+          {% if post.pdu_hours %}
+            <span class="pdu-badge">PDU {{ post.pdu_hours }}h</span>
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
