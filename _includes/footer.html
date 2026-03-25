@@ -1,0 +1,22 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p>
+        <strong>PM From Scratch</strong> &mdash;
+        {% if page.lang == 'en' %}An honest growth journal of a Junior PM
+        {% else %}주니어 PM의 솔직한 성장 노트{% endif %}
+      </p>
+      <p class="footer-links">
+        <a href="https://github.com/{{ site.github_username }}" target="_blank">GitHub</a>
+        &middot;
+        <a href="{{ '/ko/pdu/' | relative_url }}">PDU Tracker</a>
+        &middot;
+        <a href="https://pmi.org" target="_blank">PMI</a>
+      </p>
+      <p class="footer-copy">
+        &copy; {{ 'now' | date: "%Y" }} {{ site.author }} &middot;
+        Built with Jekyll &amp; automated with Claude AI
+      </p>
+    </div>
+  </div>
+</footer>
