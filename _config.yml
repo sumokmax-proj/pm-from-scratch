@@ -1,0 +1,42 @@
+title: "PM From Scratch"
+description: "주니어 PM의 솔직한 성장 노트"
+baseurl: "/pm-from-scratch"
+url: "https://sumokmax-proj.github.io"
+author: "sumokmax-proj"
+github_username: "sumokmax-proj"
+
+markdown: kramdown
+highlighter: rouge
+encoding: utf-8
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - scripts/
+  - README.md
+  - .github/
+
+defaults:
+  - scope:
+      path: "_posts/ko"
+      type: "posts"
+    values:
+      layout: "post"
+      lang: "ko"
+      permalink: "/ko/:year/:month/:day/:title/"
+  - scope:
+      path: "_posts/en"
+      type: "posts"
+    values:
+      layout: "post"
+      lang: "en"
+      permalink: "/en/:year/:month/:day/:title/"
