@@ -50,11 +50,14 @@ img { max-width: 100%; height: auto; }
 .brand-name { color: #fff; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; }
 .brand-sub  { color: rgba(255,255,255,0.65); font-size: 0.68rem; }
 
-.site-nav { display: flex; gap: 1.75rem; flex: 1; }
+/* Nav wrapper: holds site-nav + lang-switcher together */
+.nav-wrapper { display: flex; align-items: center; gap: 2rem; flex: 1; }
+
+.site-nav { display: flex; gap: 1.75rem; }
 .site-nav a { color: rgba(255,255,255,0.82); font-size: 0.9rem; font-weight: 500; transition: color .2s; text-decoration: none; }
 .site-nav a:hover { color: #fff; text-decoration: none; }
 
-.lang-switcher { display: flex; gap: 0.3rem; flex-shrink: 0; }
+.lang-switcher { display: flex; gap: 0.3rem; flex-shrink: 0; margin-left: auto; }
 .lang-btn {
   padding: 0.2rem 0.55rem;
   border-radius: 4px;
@@ -69,6 +72,35 @@ img { max-width: 100%; height: auto; }
 .lang-btn:hover { background: rgba(255,255,255,0.12); color: #fff; text-decoration: none; }
 .lang-btn.lang-active { background: rgba(255,255,255,0.22); color: #fff; border-color: rgba(255,255,255,0.55); cursor: default; }
 .lang-btn.lang-disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ── Hamburger Toggle Button ─────────────────────────────── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  margin-left: auto;
+  flex-shrink: 0;
+  border-radius: 4px;
+  transition: background .2s;
+}
+.nav-toggle:hover { background: rgba(255,255,255,0.12); }
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ── Main ────────────────────────────────────────────────── */
 .main-content { min-height: calc(100vh - var(--header-h) - 160px); }
@@ -206,8 +238,33 @@ img { max-width: 100%; height: auto; }
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
   :root { --header-h: 56px; }
+
+  /* Show hamburger, hide nav-wrapper inline */
+  .nav-toggle  { display: flex; }
+  .nav-wrapper { display: none; }
+
+  /* Dropdown mobile menu */
+  .nav-wrapper.is-open {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    position: absolute;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    background: var(--c-primary-dk);
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    z-index: 199;
+  }
+
+  .site-nav       { flex-direction: column; gap: 0.75rem; }
+  .site-nav a     { font-size: 1rem; }
+  .lang-switcher  { margin-left: 0; }
+
   .brand-sub { display: none; }
-  .site-nav  { display: none; }
+
   .hero h1   { font-size: 1.8rem; }
   .hero p    { font-size: .95rem; }
   .post-grid { grid-template-columns: 1fr; }
