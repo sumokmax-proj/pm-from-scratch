@@ -11,6 +11,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
   {% feed_meta %}
   {% seo %}
+  <script>
+    (function(){
+      var s = localStorage.getItem('theme');
+      var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (s === 'dark' || (!s && d)) document.documentElement.setAttribute('data-theme','dark');
+    })();
+  </script>
 </head>
 <body>
   {% include header.html %}

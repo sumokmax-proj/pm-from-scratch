@@ -1,43 +1,70 @@
 <header class="site-header">
   <div class="container header-inner">
     <a class="site-brand" href="{{ '/' | relative_url }}">PM From Scratch</a>
-    <div class="lang-switcher">
-      {% assign cur_lang = page.lang | default: 'ko' %}
-      {% if cur_lang == 'ko' %}
-        <span class="lang-current">KO</span>
-        <span class="lang-divider">/</span>
-        {% if page.layout == 'post' %}
-          {% assign found_en = false %}
-          {% for p in site.posts %}
-            {% if p.ref == page.ref and p.lang == 'en' %}
-              <a href="{{ p.url | relative_url }}" class="lang-other">EN</a>
-              {% assign found_en = true %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
-          {% unless found_en %}<span class="lang-disabled">EN</span>{% endunless %}
+    <div class="header-controls">
+      <div class="lang-switcher">
+        {% assign cur_lang = page.lang | default: 'ko' %}
+        {% if cur_lang == 'ko' %}
+          <span class="lang-current">KO</span>
+          <span class="lang-divider">/</span>
+          {% if page.layout == 'post' %}
+            {% assign found_en = false %}
+            {% for p in site.posts %}
+              {% if p.ref == page.ref and p.lang == 'en' %}
+                <a href="{{ p.url | relative_url }}" class="lang-other">EN</a>
+                {% assign found_en = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% unless found_en %}<span class="lang-disabled">EN</span>{% endunless %}
+          {% else %}
+            {% assign en_url = page.url | replace: '/ko/', '/en/' %}
+            <a href="{{ en_url | relative_url }}" class="lang-other">EN</a>
+          {% endif %}
         {% else %}
-          {% assign en_url = page.url | replace: '/ko/', '/en/' %}
-          <a href="{{ en_url | relative_url }}" class="lang-other">EN</a>
+          {% if page.layout == 'post' %}
+            {% assign found_ko = false %}
+            {% for p in site.posts %}
+              {% if p.ref == page.ref and p.lang == 'ko' %}
+                <a href="{{ p.url | relative_url }}" class="lang-other">KO</a>
+                {% assign found_ko = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% unless found_ko %}<span class="lang-disabled">KO</span>{% endunless %}
+          {% else %}
+            {% assign ko_url = page.url | replace: '/en/', '/ko/' %}
+            <a href="{{ ko_url | relative_url }}" class="lang-other">KO</a>
+          {% endif %}
+          <span class="lang-divider">/</span>
+          <span class="lang-current">EN</span>
         {% endif %}
-      {% else %}
-        {% if page.layout == 'post' %}
-          {% assign found_ko = false %}
-          {% for p in site.posts %}
-            {% if p.ref == page.ref and p.lang == 'ko' %}
-              <a href="{{ p.url | relative_url }}" class="lang-other">KO</a>
-              {% assign found_ko = true %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
-          {% unless found_ko %}<span class="lang-disabled">KO</span>{% endunless %}
-        {% else %}
-          {% assign ko_url = page.url | replace: '/en/', '/ko/' %}
-          <a href="{{ ko_url | relative_url }}" class="lang-other">KO</a>
-        {% endif %}
-        <span class="lang-divider">/</span>
-        <span class="lang-current">EN</span>
-      {% endif %}
+      </div>
+
+      <div class="theme-toggle-wrap">
+        <input type="checkbox" id="theme-toggle" class="theme-checkbox">
+        <label for="theme-toggle" class="theme-label" aria-label="다크 모드 전환"></label>
+      </div>
     </div>
   </div>
 </header>
+
+<script>
+  (function(){
+    var cb = document.getElementById('theme-toggle');
+    if (!cb) return;
+    cb.checked = document.documentElement.getAttribute('data-theme') === 'dark';
+    cb.addEventListener('change', function(){
+      var dark = this.checked;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e){
+      if (!localStorage.getItem('theme')) {
+        var dark = e.matches;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        cb.checked = dark;
+      }
+    });
+  })();
+</script>
