@@ -1,93 +1,49 @@
 <header class="site-header">
   <div class="container">
-    <div class="header-inner">
-      <a class="site-brand" href="{{ '/' | relative_url }}">
-        <span class="brand-name">PM From Scratch</span>
-        <span class="brand-sub">
-          {% if page.lang == 'en' %}Junior PM Growth Notes{% else %}주니어 PM 성장 노트{% endif %}
-        </span>
-      </a>
-
-      <div class="nav-wrapper" id="nav-wrapper">
-        <nav class="site-nav">
-          {% if page.lang == 'en' %}
-            <a href="{{ '/en/' | relative_url }}">Home</a>
-            <a href="{{ '/en/about/' | relative_url }}">About</a>
-            <a href="{{ '/en/pdu/' | relative_url }}">PDU Tracker</a>
-          {% else %}
-            <a href="{{ '/ko/' | relative_url }}">홈</a>
-            <a href="{{ '/ko/about/' | relative_url }}">소개</a>
-            <a href="{{ '/ko/pdu/' | relative_url }}">PDU 트래커</a>
-          {% endif %}
-        </nav>
-
-        <div class="lang-switcher">
-          {% assign cur_lang = page.lang | default: 'ko' %}
-          {% if cur_lang == 'ko' %}
-            <span class="lang-btn lang-active">KO</span>
-            {% if page.layout == 'post' %}
-              {% assign found_en = false %}
-              {% for p in site.posts %}
-                {% if p.ref == page.ref and p.lang == 'en' %}
-                  <a href="{{ p.url | relative_url }}" class="lang-btn">EN</a>
-                  {% assign found_en = true %}
-                  {% break %}
-                {% endif %}
-              {% endfor %}
-              {% unless found_en %}<span class="lang-btn lang-disabled">EN</span>{% endunless %}
-            {% else %}
-              {% assign en_url = page.url | replace: '/ko/', '/en/' %}
-              <a href="{{ en_url | relative_url }}" class="lang-btn">EN</a>
+    <a class="site-brand" href="{{ '/' | relative_url }}">PM From Scratch</a>
+    <nav class="site-nav">
+      {% if page.lang == 'en' %}
+        <a href="{{ '/en/' | relative_url }}">Home</a>
+        <a href="{{ '/en/about/' | relative_url }}">About</a>
+      {% else %}
+        <a href="{{ '/ko/' | relative_url }}">홈</a>
+        <a href="{{ '/ko/about/' | relative_url }}">소개</a>
+      {% endif %}
+      <span class="nav-sep">·</span>
+      {% assign cur_lang = page.lang | default: 'ko' %}
+      {% if cur_lang == 'ko' %}
+        <span class="lang-current">KO</span>
+        {% if page.layout == 'post' %}
+          {% assign found_en = false %}
+          {% for p in site.posts %}
+            {% if p.ref == page.ref and p.lang == 'en' %}
+              <a href="{{ p.url | relative_url }}" class="lang-other">EN</a>
+              {% assign found_en = true %}
+              {% break %}
             {% endif %}
-          {% else %}
-            {% if page.layout == 'post' %}
-              {% assign found_ko = false %}
-              {% for p in site.posts %}
-                {% if p.ref == page.ref and p.lang == 'ko' %}
-                  <a href="{{ p.url | relative_url }}" class="lang-btn">KO</a>
-                  {% assign found_ko = true %}
-                  {% break %}
-                {% endif %}
-              {% endfor %}
-              {% unless found_ko %}<span class="lang-btn lang-disabled">KO</span>{% endunless %}
-            {% else %}
-              {% assign ko_url = page.url | replace: '/en/', '/ko/' %}
-              <a href="{{ ko_url | relative_url }}" class="lang-btn">KO</a>
+          {% endfor %}
+          {% unless found_en %}<span class="lang-disabled">EN</span>{% endunless %}
+        {% else %}
+          {% assign en_url = page.url | replace: '/ko/', '/en/' %}
+          <a href="{{ en_url | relative_url }}" class="lang-other">EN</a>
+        {% endif %}
+      {% else %}
+        {% if page.layout == 'post' %}
+          {% assign found_ko = false %}
+          {% for p in site.posts %}
+            {% if p.ref == page.ref and p.lang == 'ko' %}
+              <a href="{{ p.url | relative_url }}" class="lang-other">KO</a>
+              {% assign found_ko = true %}
+              {% break %}
             {% endif %}
-            <span class="lang-btn lang-active">EN</span>
-          {% endif %}
-        </div>
-      </div>
-
-      <button class="nav-toggle" id="nav-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-wrapper">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
+          {% endfor %}
+          {% unless found_ko %}<span class="lang-disabled">KO</span>{% endunless %}
+        {% else %}
+          {% assign ko_url = page.url | replace: '/en/', '/ko/' %}
+          <a href="{{ ko_url | relative_url }}" class="lang-other">KO</a>
+        {% endif %}
+        <span class="lang-current">EN</span>
+      {% endif %}
+    </nav>
   </div>
 </header>
-
-<script>
-  (function () {
-    var toggle = document.getElementById('nav-toggle');
-    var wrapper = document.getElementById('nav-wrapper');
-    if (!toggle || !wrapper) return;
-
-    toggle.addEventListener('click', function () {
-      var isOpen = wrapper.classList.toggle('is-open');
-      toggle.classList.toggle('is-open', isOpen);
-      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      toggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
-    });
-
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest('.site-header')) {
-        wrapper.classList.remove('is-open');
-        toggle.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', '메뉴 열기');
-      }
-    });
-  })();
-</script>
