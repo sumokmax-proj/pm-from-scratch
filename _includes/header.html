@@ -1,18 +1,11 @@
 <header class="site-header">
-  <div class="container">
+  <div class="container header-inner">
     <a class="site-brand" href="{{ '/' | relative_url }}">PM From Scratch</a>
-    <nav class="site-nav">
-      {% if page.lang == 'en' %}
-        <a href="{{ '/en/' | relative_url }}">Home</a>
-        <a href="{{ '/en/about/' | relative_url }}">About</a>
-      {% else %}
-        <a href="{{ '/ko/' | relative_url }}">홈</a>
-        <a href="{{ '/ko/about/' | relative_url }}">소개</a>
-      {% endif %}
-      <span class="nav-sep">·</span>
+    <div class="lang-switcher">
       {% assign cur_lang = page.lang | default: 'ko' %}
       {% if cur_lang == 'ko' %}
         <span class="lang-current">KO</span>
+        <span class="lang-divider">/</span>
         {% if page.layout == 'post' %}
           {% assign found_en = false %}
           {% for p in site.posts %}
@@ -42,8 +35,9 @@
           {% assign ko_url = page.url | replace: '/en/', '/ko/' %}
           <a href="{{ ko_url | relative_url }}" class="lang-other">KO</a>
         {% endif %}
+        <span class="lang-divider">/</span>
         <span class="lang-current">EN</span>
       {% endif %}
-    </nav>
+    </div>
   </div>
 </header>

@@ -4,22 +4,19 @@ layout: default
 
 {% assign lang_posts = site.posts | where: "lang", page.lang %}
 
-<div class="home-bio">
-  <p>
-    {% if page.lang == 'en' %}
-      Honest notes from a PMP-certified junior PM. Real struggles, real lessons — growing in public.
-    {% else %}
-      PMP를 갓 취득한 주니어 PM의 솔직한 성장 노트.<br>
-      같은 어려움을 겪는 분들과 함께 성장하고 싶습니다.
-    {% endif %}
-  </p>
+<div class="home-profile">
+  {% if page.lang == 'en' %}
+    <p>3 years as a PM, less than a year since getting my PMP.</p>
+    <p>I'm not writing this as an expert — I'm writing to <strong>learn by documenting</strong>. When I first started as a PM, I was completely lost. There were very few practical PM resources in Korean, and the ones that existed were too theoretical to apply in real work.</p>
+    <p>I started this blog hoping it would help others who were just as confused as I was.</p>
+  {% else %}
+    <p>PM을 시작한 지 3년, PMP를 취득한 지는 1년이 채 되지 않았어요.</p>
+    <p>전문가가 되어서 블로그를 쓰는 게 아니라, <strong>배우면서 기록하기 위해</strong> 시작했습니다. 처음 PM을 시작했을 때 정말 막막했어요. 한국어로 된 실용적인 PM 자료가 너무 없었고, 있어도 너무 이론적이라 실무에 적용하기 어려웠습니다.</p>
+    <p>나처럼 헤맨 사람들에게 조금이나마 도움이 되었으면 해서 시작했어요.</p>
+  {% endif %}
 </div>
 
-{% if lang_posts.size == 0 %}
-  <p class="no-posts">
-    {% if page.lang == 'en' %}No posts yet. Check back soon!{% else %}아직 글이 없습니다. 곧 업데이트될 예정이에요!{% endif %}
-  </p>
-{% else %}
+{% if lang_posts.size > 0 %}
   <ul class="post-list">
     {% for post in lang_posts %}
     <li class="post-list-item">
@@ -28,4 +25,8 @@ layout: default
     </li>
     {% endfor %}
   </ul>
+{% else %}
+  <p class="no-posts">
+    {% if page.lang == 'en' %}No posts yet. Check back soon!{% else %}아직 글이 없습니다. 곧 업데이트될 예정이에요!{% endif %}
+  </p>
 {% endif %}
