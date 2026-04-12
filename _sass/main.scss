@@ -3,14 +3,14 @@
    ============================================================ */
 
 :root {
-  --c-bg:         #f5f3ec;
-  --c-bg-alt:     #edeade;
-  --c-text:       #1a1a1a;
-  --c-muted:      #6b6b6b;
-  --c-border:     #d8d4c8;
+  --c-bg:         #f0eee6;   /* dario 정확히 동일: rgb(240,238,230) */
+  --c-bg-alt:     #e7e4db;
+  --c-text:       #1f1e1d;   /* dario 정확히 동일: rgb(31,30,29) */
+  --c-muted:      #6e6b63;
+  --c-border:     #ccc9be;
   --c-link:       #1e4d8c;
-  --font-sans:    'Noto Sans KR', 'Inter', -apple-system, sans-serif;
-  --font-serif:   'Noto Serif KR', 'Georgia', serif;
+  --font-sans:    'Noto Sans KR', -apple-system, sans-serif;
+  --font-serif:   'Gowun Batang', 'Georgia', serif;
   --font-mono:    'Courier New', Courier, monospace;
   --max-w:        640px;
   --radius:       4px;
