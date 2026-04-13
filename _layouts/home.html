@@ -16,17 +16,41 @@ layout: default
   {% endif %}
 </div>
 
-{% if lang_posts.size > 0 %}
-  <ul class="post-list">
-    {% for post in lang_posts %}
-    <li class="post-list-item">
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <span class="post-list-date">{{ post.date | date: "%Y.%m.%d" }}</span>
-    </li>
-    {% endfor %}
-  </ul>
-{% else %}
+{% if lang_posts.size == 0 %}
   <p class="no-posts">
     {% if page.lang == 'en' %}No posts yet. Check back soon!{% else %}아직 글이 없습니다. 곧 업데이트될 예정이에요!{% endif %}
   </p>
+{% else %}
+
+  {% assign category_list = "essays,short-posts,tutorials" | split: "," %}
+
+  {% for cat in category_list %}
+    {% assign cat_posts = lang_posts | where_exp: "p", "p.categories contains cat" %}
+    {% if cat_posts.size > 0 %}
+
+      <div class="post-section">
+        <h2 class="section-heading">
+          {% if cat == 'essays' %}
+            {% if page.lang == 'en' %}Essays{% else %}에세이{% endif %}
+          {% elsif cat == 'short-posts' %}
+            {% if page.lang == 'en' %}Short posts{% else %}짧은 글{% endif %}
+          {% elsif cat == 'tutorials' %}
+            {% if page.lang == 'en' %}Tutorials{% else %}튜토리얼{% endif %}
+          {% else %}
+            {{ cat }}
+          {% endif %}
+        </h2>
+        <ul class="post-list">
+          {% for post in cat_posts %}
+          <li class="post-list-item">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <span class="post-list-date">{{ post.date | date: "%Y.%m.%d" }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    {% endif %}
+  {% endfor %}
+
 {% endif %}

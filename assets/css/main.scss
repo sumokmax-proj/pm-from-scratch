@@ -134,6 +134,19 @@ img { max-width: 100%; height: auto; }
 }
 .home-profile p:last-child { margin-bottom: 0; }
 
+/* Post sections (Essays / Short posts / Tutorials) */
+.post-section { margin-bottom: 2.5rem; }
+
+.section-heading {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 0.25rem;
+}
+
 /* Post list */
 .post-list { list-style: none; }
 .post-list-item {
