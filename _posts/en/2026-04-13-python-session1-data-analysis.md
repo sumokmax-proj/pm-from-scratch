@@ -7,8 +7,6 @@ ref: python-session-1
 categories: [tutorials]
 tags: [python, data-analysis, pandas, matplotlib, tutorial]
 description: "Learn Python through real data analysis. In 90 minutes, analyze 303 heart disease patients and build 4 charts — starting from zero Python knowledge."
-pdu_category: "Ways of Working"
-pdu_hours: 1.5
 ---
 
 > **Instructor:** Max Kang  
