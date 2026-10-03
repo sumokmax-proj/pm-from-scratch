@@ -7,7 +7,8 @@ Claude와 대화를 이어갈 때 이 파일을 참고해 배경을 빠르게 �
 ## 프로젝트 개요
 
 - **사이트명:** PM From Scratch
-- **주제:** PMP를 갓 취득한 주니어 PM의 솔직한 성장 노트
+- **주제:** Project Management, et cetera — PM 기초를 중심으로 하되 다른 주제도 가끔 다루는 블로그
+- **글 작성:** 포스트 본문은 블로그 운영자가 직접 씀 (Claude는 사이트 구조·디자인·설정 작업을 도움)
 - **URL:** https://sumokmax-proj.github.io/pm-from-scratch/
 - **GitHub 저장소:** https://github.com/sumokmax-proj/pm-from-scratch
 - **기술 스택:** Jekyll (정적 사이트), GitHub Pages 자동 배포, SCSS
