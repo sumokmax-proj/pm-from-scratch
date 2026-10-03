@@ -5,17 +5,7 @@ layout: default
 {% assign lang_posts = site.posts | where: "lang", page.lang %}
 
 <div class="home-profile">
-  {% if page.lang == 'en' %}
-    <p>Year 0 as a PM — I had no idea what a Project Manager even did.</p>
-    <p>Year 1 — I thought I'd taken the wrong path.</p>
-    <p>Year 2 — I challenged myself to get a PMP. Figured something good might come of it.</p>
-    <p>Year 3 — There's still so much I don't know. So I write.</p>
-  {% else %}
-    <p>PM 0년차 - Project Manager가 무슨 일을 하는지도 몰랐습니다.</p>
-    <p>PM 1년차 - 길을 잘못들었다고 생각했습니다.</p>
-    <p>PM 2년차 - PMP 자격증에 도전했습니다. 뭐라도 되겠죠 싶었어요.</p>
-    <p>PM 3년차 - 아직도 모르는 게 많습니다. 그래서 씁니다.</p>
-  {% endif %}
+  <p>Project Management, et cetera</p>
 </div>
 
 {% if lang_posts.size == 0 %}
